@@ -6,7 +6,7 @@
 
 Name: kguiaddons
 Version: 5.4.0
-Release: 1
+Release: 2
 Source0: http://ftp5.gwdg.de/pub/linux/kde/%{stable}/frameworks/%{version}/%{name}-%{version}.tar.xz
 Summary: The KDE Frameworks 5 GUI Library addons
 URL: http://kde.org/
