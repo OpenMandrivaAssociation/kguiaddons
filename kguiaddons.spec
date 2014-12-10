@@ -42,15 +42,14 @@ Development files (Headers etc.) for %{name}.
 
 %prep
 %setup -q
-%cmake -G Ninja
+%cmake -G Ninja \
+	-DKDE_INSTALL_USE_QT_SYS_PATHS:BOOL=ON
 
 %build
 ninja -C build
 
 %install
 DESTDIR=%{buildroot} ninja install -C build
-mkdir -p %{buildroot}%{_libdir}/qt5
-mv %{buildroot}%{_prefix}/mkspecs %{buildroot}%{_libdir}/qt5
 
 %files -n %{libname}
 %{_libdir}/*.so.%{major}
