@@ -1,2 +1,4 @@
-sources:
+removed_sources:
   kguiaddons-5.13.0.tar.xz: 320cf4efdef5833a32dfb8f440b4983c2670a828
+sources:
+  kguiaddons-5.14.0.tar.xz: 671e74cda0a6980824c212a7eeb89371051cc77e
