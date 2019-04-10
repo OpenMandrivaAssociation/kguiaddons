@@ -5,8 +5,8 @@
 %define stable %([ "`echo %{version} |cut -d. -f3`" -ge 80 ] && echo -n un; echo -n stable)
 
 Name: kguiaddons
-Version:	5.56.0
-Release:	2
+Version:	5.57.0
+Release:	1
 Source0: http://download.kde.org/%{stable}/frameworks/%(echo %{version} |cut -d. -f1-2)/%{name}-%{version}.tar.xz
 Summary: The KDE Frameworks 5 GUI Library addons
 URL: http://kde.org/
@@ -18,6 +18,14 @@ BuildRequires: pkgconfig(Qt5Gui)
 BuildRequires: pkgconfig(Qt5Test)
 BuildRequires: pkgconfig(Qt5Widgets)
 BuildRequires: pkgconfig(Qt5X11Extras)
+# For Python bindings
+BuildRequires: cmake(PythonModuleGeneration)
+BuildRequires: pkgconfig(python3)
+BuildRequires: python-qt5-core
+BuildRequires: python-qt5-gui
+BuildRequires: python-qt5-widgets
+# For QCH format docs
+BuildRequires: qt5-assistant
 Requires: %{libname} = %{EVRD}
 
 %description
@@ -38,6 +46,22 @@ Requires: %{libname} = %{EVRD}
 %description -n %{devname}
 Development files (Headers etc.) for %{name}.
 
+%package -n %{name}-devel-docs
+Summary: Developer documentation for %{name} for use with Qt Assistant
+Group: Documentation
+Suggests: %{devname} = %{EVRD}
+
+%description -n %{name}-devel-docs
+Developer documentation for %{name} for use with Qt Assistant
+
+%package -n python-%{name}
+Summary: Python bindings for %{name}
+Group: System/Libraries
+Requires: %{libname} = %{EVRD}
+
+%description -n python-%{name}
+Python bindings for %{name}
+
 %prep
 %setup -q
 %cmake_kde5
@@ -47,6 +71,7 @@ Development files (Headers etc.) for %{name}.
 
 %install
 %ninja_install -C build
+[ -s %{buildroot}%{python_sitearch}/PyKF5/__init__.py ] || rm -f %{buildroot}%{python_sitearch}/PyKF5/__init__.py
 
 %files -n %{libname}
 %{_libdir}/*.so.%{major}
@@ -57,3 +82,12 @@ Development files (Headers etc.) for %{name}.
 %{_libdir}/*.so
 %{_libdir}/cmake/KF5GuiAddons
 %{_libdir}/qt5/mkspecs/modules/*
+
+%files -n %{name}-devel-docs
+%{_docdir}/qt5/*.{tags,qch}
+
+%files -n python-%{name}
+%dir %{python_sitearch}/PyKF5
+%{python_sitearch}/PyKF5/KGuiAddons.so
+%dir %{_datadir}/sip/PyKF5
+%{_datadir}/sip/PyKF5/KGuiAddons
