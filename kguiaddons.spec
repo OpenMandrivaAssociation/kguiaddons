@@ -5,7 +5,7 @@
 %define stable %([ "`echo %{version} |cut -d. -f3`" -ge 80 ] && echo -n un; echo -n stable)
 
 Name: kguiaddons
-Version:	5.59.0
+Version:	5.60.0
 Release:	1
 Source0: http://download.kde.org/%{stable}/frameworks/%(echo %{version} |cut -d. -f1-2)/%{name}-%{version}.tar.xz
 Summary: The KDE Frameworks 5 GUI Library addons
@@ -73,10 +73,13 @@ Python bindings for %{name}
 %install
 %ninja_install -C build
 [ -s %{buildroot}%{python_sitearch}/PyKF5/__init__.py ] || rm -f %{buildroot}%{python_sitearch}/PyKF5/__init__.py
+# Let's not ship py2 crap unless and until something still needs it...
+rm -rf %{buildroot}%{_libdir}/python2*
 
 %files -n %{libname}
 %{_libdir}/*.so.%{major}
 %{_libdir}/*.so.%{version}
+%{_libdir}/qt5/plugins/kf5/kguiaddons/kmodifierkey/kmodifierkey_xcb.so
 
 %files -n %{devname}
 %{_includedir}/*
