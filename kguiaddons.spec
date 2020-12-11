@@ -2,7 +2,7 @@
 %define libname %mklibname KF5GuiAddons %{major}
 %define devname %mklibname KF5GuiAddons -d
 %define debug_package %{nil}
-%define stable %([ "`echo %{version} |cut -d. -f3`" -ge 80 ] && echo -n un; echo -n stable)
+%define stable %([ "$(echo %{version} |cut -d. -f3)" -ge 80 ] && echo -n un; echo -n stable)
 
 Name: kguiaddons
 Version:	5.77.0
@@ -18,6 +18,7 @@ BuildRequires: pkgconfig(Qt5Gui)
 BuildRequires: pkgconfig(Qt5Test)
 BuildRequires: pkgconfig(Qt5Widgets)
 BuildRequires: pkgconfig(Qt5X11Extras)
+BuildRequires: pkgconfig(Qt5WaylandClient)
 BuildRequires: qt5-qtwayland
 BuildRequires: pkgconfig(wayland-client)
 # For Python bindings
