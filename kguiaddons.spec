@@ -18,6 +18,7 @@ BuildRequires: pkgconfig(Qt5Gui)
 BuildRequires: pkgconfig(Qt5Test)
 BuildRequires: pkgconfig(Qt5Widgets)
 BuildRequires: pkgconfig(Qt5X11Extras)
+BuildRequires: qt5-qtwayland
 # For Python bindings
 BuildRequires: cmake(PythonModuleGeneration)
 BuildRequires: pkgconfig(python3)
