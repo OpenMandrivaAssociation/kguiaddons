@@ -4,7 +4,7 @@
 %define stable %([ "$(echo %{version} |cut -d. -f3)" -ge 80 ] && echo -n un; echo -n stable)
 
 Name: kguiaddons
-Version:	5.90.0
+Version:	5.91.0
 Release:	1
 Source0: http://download.kde.org/%{stable}/frameworks/%(echo %{version} |cut -d. -f1-2)/%{name}-%{version}.tar.xz
 Summary: The KDE Frameworks 5 GUI Library addons
@@ -37,6 +37,7 @@ The KDE Frameworks 5 GUI Library addons.
 %package -n %{libname}
 Summary: The KDE Frameworks 5 GUI Library addons
 Group: System/Libraries
+Requires: %{name} = %{EVRD}
 
 %description -n %{libname}
 The KDE Frameworks 5 GUI Library addons.
@@ -77,6 +78,13 @@ Python bindings for %{name}
 [ -s %{buildroot}%{python_sitearch}/PyKF5/__init__.py ] || rm -f %{buildroot}%{python_sitearch}/PyKF5/__init__.py
 # Let's not ship py2 crap unless and until something still needs it...
 rm -rf %{buildroot}%{_libdir}/python2*
+
+%files
+%{_bindir}/kde-geo-uri-handler
+%{_datadir}/applications/google-maps-geo-handler.desktop
+%{_datadir}/applications/openstreetmap-geo-handler.desktop
+%{_datadir}/applications/qwant-maps-geo-handler.desktop
+%{_datadir}/applications/wheelmap-geo-handler.desktop
 
 %files -n %{libname}
 %{_libdir}/*.so.%{major}
