@@ -20,6 +20,7 @@ BuildRequires: pkgconfig(Qt5X11Extras)
 BuildRequires: pkgconfig(Qt5WaylandClient)
 BuildRequires: qt5-qtwayland
 BuildRequires: pkgconfig(wayland-client)
+BuildRequires: cmake(PlasmaWaylandProtocols) >= 1.7.0
 Obsoletes: python-%{name} < %{EVRD}
 # For QCH format docs
 BuildRequires: doxygen
