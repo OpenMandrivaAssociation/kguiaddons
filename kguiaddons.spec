@@ -5,7 +5,7 @@
 
 Name: kguiaddons
 Version:	5.108.0
-Release:	2
+Release:	3
 Source0: http://download.kde.org/%{stable}/frameworks/%(echo %{version} |cut -d. -f1-2)/%{name}-%{version}.tar.xz
 Summary: The KDE Frameworks 5 GUI Library addons
 URL: http://kde.org/
@@ -34,7 +34,11 @@ The KDE Frameworks 5 GUI Library addons.
 %package -n %{libname}
 Summary: The KDE Frameworks 5 GUI Library addons
 Group: System/Libraries
-Requires: %{name} = %{EVRD}
+# It's recommended to use the KF6 geo scheme handler even for KF5,
+# even before KF6 is released.
+# https://community.kde.org/Plasma/Plasma_6#Packaging_notes
+Requires: kde-geo-scheme-handler
+Obsoletes: %{name} < %{EVRD}
 
 %description -n %{libname}
 The KDE Frameworks 5 GUI Library addons.
@@ -57,20 +61,14 @@ Developer documentation for %{name} for use with Qt Assistant
 
 %prep
 %setup -q
-%cmake_kde5
+%cmake_kde5 \
+	-DBUILD_GEO_SCHEME_HANDLER:BOOL=OFF
 
 %build
 %ninja -C build
 
 %install
 %ninja_install -C build
-
-%files
-%{_bindir}/kde-geo-uri-handler
-%{_datadir}/applications/google-maps-geo-handler.desktop
-%{_datadir}/applications/openstreetmap-geo-handler.desktop
-%{_datadir}/applications/qwant-maps-geo-handler.desktop
-%{_datadir}/applications/wheelmap-geo-handler.desktop
 
 %files -n %{libname}
 %{_libdir}/*.so.%{major}
